@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>NomadAI Hub — AI Tools for Remote Workers, Digital Nomads & Solopreneurs</title>
+<meta name="description" content="A curated directory of the best AI tools for remote workers, digital nomads, and solopreneurs — built to automate the work that keeps you stationary." />
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #0a0a0a;
+    --bg-1: #111111;
+    --bg-2: #161616;
+    --text: #f5f5f5;
+    --text-soft: rgba(255,255,255,0.62);
+    --text-mute: rgba(255,255,255,0.38);
+    --line: rgba(255,255,255,0.12);
+    --line-soft: rgba(255,255,255,0.06);
+    --accent: #00ff9d;
+    --accent-dim: rgba(0,255,157,0.12);
+    --serif: 'Times New Roman', 'Songti SC', serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+    --mono: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+    --ease: cubic-bezier(.22, 1, .36, 1);
+  }
+
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+  a { color: inherit; text-decoration: none; }
+  button { font: inherit; color: inherit; background: none; border: none; cursor: pointer; }
+  input, textarea { font: inherit; color: inherit; }
+
+  .label {
+    font-family: var(--sans);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-mute);
+  }
+
+  /* Nav */
+  .nav {
+    position: sticky; top: 0; z-index: 50;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.25rem 2rem;
+    background: rgba(10,10,10,0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .nav__brand { display: flex; align-items: center; gap: 0.6rem; font-family: var(--serif); font-size: 1.15rem; }
+  .nav__mark { color: var(--accent); font-size: 0.7rem; }
+  .nav__links { display: flex; gap: 2rem; align-items: center; }
+  .nav__links a {
+    font-size: 13px; color: var(--text-soft); transition: color 300ms var(--ease);
+  }
+  .nav__links a:hover { color: var(--accent); }
+  .nav__cta {
+    border: 1px solid var(--line);
+    padding: 0.5rem 0.9rem;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: all 300ms var(--ease);
+  }
+  .nav__cta:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* Hero */
+  .hero {
+    padding: 8rem 2rem 6rem;
+    max-width: 1400px; margin: 0 auto;
+    display: flex; flex-direction: column; align-items: center; text-align: center;
+  }
+  .hero__inner { max-width: 880px; width: 100%; }
+  .hero .label { display: block; margin-bottom: 2rem; }
+  .hero__title {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(2.5rem, 7vw, 5.25rem);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 2rem;
+  }
+  .hero__title em { font-style: italic; color: var(--accent); }
+  .hero__desc {
+    font-size: 1.1rem;
+    color: var(--text-soft);
+    max-width: 580px; margin: 0 auto 3rem;
+    line-height: 1.6;
+  }
+
+  .search {
+    position: relative;
+    display: flex; align-items: center;
+    max-width: 640px; margin: 0 auto;
+    background: var(--bg-1);
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    transition: border-color 400ms var(--ease), background 400ms var(--ease), box-shadow 400ms var(--ease);
+  }
+  .search:focus-within {
+    border-color: var(--accent);
+    background: #0d0d0d;
+    box-shadow: 0 0 0 4px var(--accent-dim);
+  }
+  .search__icon {
+    position: absolute; left: 1.25rem;
+    color: var(--text-mute); font-size: 1.2rem;
+    transition: color 300ms var(--ease);
+    pointer-events: none;
+  }
+  .search:focus-within .search__icon { color: var(--accent); }
+  .search__input {
+    flex: 1; padding: 1.15rem 1.25rem 1.15rem 3.25rem;
+    background: transparent; border: none; outline: none;
+    font-size: 1rem; color: var(--text);
+  }
+  .search__input::placeholder { color: var(--text-mute); }
+  .search__count {
+    position: absolute; right: 1.25rem;
+    font-family: var(--mono); font-size: 11px;
+    color: var(--text-mute);
+    letter-spacing: 0.04em;
+    pointer-events: none;
+    transition: color 300ms var(--ease);
+  }
+  .search:focus-within .search__count { color: var(--text-soft); }
+
+  .hero__meta {
+    display: flex; justify-content: center; gap: 2.5rem;
+    margin-top: 2.5rem;
+    font-size: 12px; color: var(--text-mute);
+    font-family: var(--mono); letter-spacing: 0.04em;
+  }
+  .hero__meta strong { color: var(--text); font-weight: 400; }
+
+  /* Directory */
+  .directory { padding: 4rem 2rem 8rem; max-width: 1400px; margin: 0 auto; }
+  .directory__head {
+    display: flex; justify-content: space-between; align-items: center;
+    padding-bottom: 1.75rem;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 0;
+    flex-wrap: wrap; gap: 1.5rem;
+  }
+  .directory__head .label { font-size: 12px; }
+  .filters { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+  .filter {
+    padding: 0.55rem 1rem;
+    font-size: 12px;
+    font-family: var(--mono);
+    letter-spacing: 0.04em;
+    color: var(--text-soft);
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    transition: all 300ms var(--ease);
+    display: inline-flex; align-items: center; gap: 0.5rem;
+  }
+  .filter:hover { color: var(--text); border-color: rgba(255,255,255,0.28); }
+  .filter.is-active {
+    color: var(--accent);
+    border-color: var(--accent);
+    background: var(--accent-dim);
+  }
+  .filter__count { font-size: 10px; opacity: 0.6; }
+
+  /* Grid */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--line);
+    border-bottom: 1px solid var(--line);
+    border-left: 1px solid var(--line);
+    border-right: 1px solid var(--line);
+  }
+  @media (max-width: 980px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 640px) { .grid { grid-template-columns: 1fr; } }
+
+  .card {
+    background: var(--bg);
+    padding: 2.25rem 2rem 2rem;
+    display: flex; flex-direction: column;
+    position: relative;
+    transition: background 400ms var(--ease);
+    opacity: 0; transform: translateY(20px);
+  }
+  .card.is-in {
+    opacity: 1; transform: none;
+    transition: opacity 800ms var(--ease), transform 800ms var(--ease);
+  }
+  .card:hover { background: #0d0d0d; }
+
+  .card__head {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    margin-bottom: 1.75rem;
+  }
+  .card__tag {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-mute);
+    padding-top: 0.6rem;
+  }
+  .card__logo {
+    width: 52px; height: 52px;
+    border: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--serif);
+    font-size: 1.5rem;
+    color: var(--accent);
+    background: var(--bg-1);
+    transition: all 400ms var(--ease);
+  }
+  .card:hover .card__logo {
+    border-color: var(--accent);
+    background: var(--accent-dim);
+  }
+
+  .card__title {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 1.6rem;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.85rem;
+    line-height: 1.2;
+  }
+  .card__desc {
+    font-size: 0.92rem;
+    color: var(--text-soft);
+    line-height: 1.55;
+    margin-bottom: 2rem;
+    flex: 1;
+  }
+  .card__cta {
+    display: inline-flex; align-items: center; gap: 0.6rem;
+    font-size: 11px;
+    font-family: var(--mono);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text);
+    padding: 0.4rem 0;
+    border-bottom: 1px solid var(--line);
+    align-self: flex-start;
+    transition: all 300ms var(--ease);
+    cursor: pointer;
+  }
+  .card__cta::after { content: '→'; transition: transform 300ms var(--ease); }
+  .card:hover .card__cta {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+  }
+  .card:hover .card__cta::after { transform: translateX(4px); }
+
+  /* Empty state */
+  .empty {
+    text-align: center;
+    padding: 6rem 2rem;
+    color: var(--text-mute);
+  }
+  .empty__mark {
+    display: block;
+    font-family: var(--serif);
+    font-size: 3rem;
+    color: var(--text-soft);
+    margin-bottom: 1rem;
+    font-style: italic;
+  }
+  .empty p { font-size: 0.95rem; }
+
+  /* Footer */
+  .footer {
+    border-top: 1px solid var(--line);
+    padding: 4rem 2rem;
+    text-align: center;
+  }
+  .footer__inner { max-width: 880px; margin: 0 auto; }
+  .footer__brand {
+    display: inline-flex; align-items: center; gap: 0.6rem;
+    font-family: var(--serif); font-size: 1.15rem;
+    margin-bottom: 1rem;
+  }
+  .footer__tag {
+    font-family: var(--serif);
+    font-size: 1.5rem;
+    font-style: italic;
+    color: var(--text-soft);
+    margin-bottom: 2rem;
+  }
+  .footer__small {
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    color: var(--text-mute);
+    font-family: var(--mono);
+  }
+
+  /* Hero entrance */
+  .fade-up { opacity: 0; transform: translateY(30px); transition: opacity 1000ms var(--ease), transform 1000ms var(--ease); }
+  .fade-up.is-in { opacity: 1; transform: none; }
+  .fade-up.d-1 { transition-delay: 100ms; }
+  .fade-up.d-2 { transition-delay: 250ms; }
+  .fade-up.d-3 { transition-delay: 400ms; }
+  .fade-up.d-4 { transition-delay: 550ms; }
+
+  /* ============ MODAL ============ */
+  .modal-overlay {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.78);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    z-index: 100;
+    display: flex; align-items: center; justify-content: center;
+    padding: 2rem;
+    opacity: 0; visibility: hidden;
+    transition: opacity 400ms var(--ease), visibility 400ms var(--ease);
+  }
+  .modal-overlay.is-open { opacity: 1; visibility: visible; }
+
+  .modal {
+    background: var(--bg);
+    border: 1px solid var(--line);
+    max-width: 760px; width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    transform: translateY(20px) scale(0.98);
+    transition: transform 500ms var(--ease);
+  }
+  .modal-overlay.is-open .modal { transform: none; }
+  .modal::-webkit-scrollbar { width: 6px; }
+  .modal::-webkit-scrollbar-track { background: var(--bg); }
+  .modal::-webkit-scrollbar-thumb { background: var(--line); }
+
+  .modal__head {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    padding: 2rem 2.25rem 1.75rem;
+    border-bottom: 1px solid var(--line);
+  }
+  .modal__head-text { flex: 1; }
+  .modal__head .label { display: block; margin-bottom: 0.5rem; }
+  .modal__title {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 1.75rem;
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+  }
+  .modal__close {
+    width: 36px; height: 36px;
+    border: 1px solid var(--line);
+    color: var(--text-soft);
+    font-size: 1.4rem;
+    line-height: 1;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 300ms var(--ease);
+    flex-shrink: 0;
+    margin-left: 1rem;
+  }
+  .modal__close:hover { color: var(--accent); border-color: var(--accent); }
+
+  .modal__body { padding: 1.75rem 2.25rem 2.25rem; }
+
+  .modal__instruction {
+    font-size: 0.92rem;
+    color: var(--text-soft);
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+  }
+
+  .modal__textarea {
+    width: 100%;
+    min-height: 130px;
+    background: var(--bg-1);
+    border: 1px solid var(--line);
+    padding: 1rem 1.1rem;
+    font-size: 0.95rem;
+    color: var(--text);
+    resize: vertical;
+    outline: none;
+    font-family: var(--sans);
+    line-height: 1.5;
+    transition: border-color 300ms var(--ease), box-shadow 300ms var(--ease);
+  }
+  .modal__textarea:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-dim);
+  }
+  .modal__textarea::placeholder { color: var(--text-mute); }
+
+  .modal__generate {
+    margin-top: 1.25rem;
+    background: var(--accent);
+    color: #000;
+    padding: 0.95rem 1.5rem;
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    border: 1px solid var(--accent);
+    display: inline-flex; align-items: center; gap: 0.7rem;
+    transition: all 300ms var(--ease);
+    cursor: pointer;
+  }
+  .modal__generate:hover { background: #00e589; border-color: #00e589; }
+  .modal__generate:disabled {
+    background: var(--bg-1); color: var(--text-mute); border-color: var(--line);
+    cursor: not-allowed;
+  }
+  .modal__generate::after {
+    content: '↗'; transition: transform 300ms var(--ease);
+  }
+  .modal__generate:not(:disabled):hover::after { transform: translate(2px, -2px); }
+
+  .modal__result {
+    margin-top: 2rem;
+    border-top: 1px solid var(--line);
+    padding-top: 1.5rem;
+  }
+  .modal__result-head {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 1rem;
+  }
+  .modal__result-head .label { font-size: 11px; }
+  .modal__result-body {
+    min-height: 120px;
+    background: var(--bg-1);
+    border: 1px solid var(--line-soft);
+    padding: 1.5rem;
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: var(--text-soft);
+  }
+  .modal__result-body.is-empty {
+    display: flex; align-items: center; justify-content: center;
+    color: var(--text-mute);
+    font-style: italic;
+    font-family: var(--serif);
+    font-size: 1.05rem;
+  }
+  .modal__result-body h3,
+  .modal__result-body h4 {
+    font-family: var(--serif);
+    font-weight: 400;
+    color: var(--text);
+    margin: 1.25rem 0 0.6rem;
+    line-height: 1.3;
+  }
+  .modal__result-body h3 { font-size: 1.35rem; }
+  .modal__result-body h4 { font-size: 1.1rem; }
+  .modal__result-body h3:first-child,
+  .modal__result-body h4:first-child { margin-top: 0; }
+  .modal__result-body p { margin-bottom: 0.75rem; }
+  .modal__result-body ul, .modal__result-body ol { margin: 0 0 0.75rem 1.25rem; }
+  .modal__result-body li { margin-bottom: 0.35rem; }
+  .modal__result-body strong { color: var(--text); font-weight: 600; }
+  .modal__result-body em { font-style: italic; }
+  .modal__result-body code {
+    font-family: var(--mono);
+    font-size: 0.85em;
+    background: var(--bg-2);
+    padding: 0.1em 0.4em;
+    color: var(--accent);
+  }
+  .modal__result-body pre {
+    background: var(--bg-2);
+    padding: 1rem;
+    overflow-x: auto;
+    margin-bottom: 0.75rem;
+    border-left: 2px solid var(--accent);
+  }
+  .modal__result-body pre code {
+    background: none; padding: 0; color: var(--text);
+  }
+
+  /* Thinking animation */
+  .thinking {
+    display: flex; align-items: center; gap: 0.6rem;
+    color: var(--accent);
+    font-family: var(--mono);
+    font-size: 13px;
+    letter-spacing: 0.04em;
+  }
+  .thinking__dots { display: inline-flex; gap: 4px; }
+  .thinking__dot {
+    width: 6px; height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+    animation: thinking-pulse 1.4s infinite ease-in-out;
+  }
+  .thinking__dot:nth-child(2) { animation-delay: 0.2s; }
+  .thinking__dot:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes thinking-pulse {
+    0%, 60%, 100% { opacity: 0.25; transform: scale(0.8); }
+    30% { opacity: 1; transform: scale(1); }
+  }
+
+  .modal__error {
+    color: #ff6b6b;
+    font-family: var(--mono);
+    font-size: 12px;
+    line-height: 1.6;
+  }
+
+  @media (max-width: 768px) {
+    .nav__links a:not(.nav__cta) { display: none; }
+    .hero { padding: 5rem 1.5rem 4rem; }
+    .directory { padding: 2rem 1.5rem 6rem; }
+    .hero__meta { flex-direction: column; gap: 0.75rem; }
+    .nav { padding: 1rem 1.5rem; }
+    .modal__head, .modal__body { padding-left: 1.5rem; padding-right: 1.5rem; }
+    .modal__title { font-size: 1.4rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+    .card, .fade-up { opacity: 1 !important; transform: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <a href="#" class="nav__brand">
+    <span class="nav__mark">◆</span>
+    <span>NomadAI Hub</span>
+  </a>
+  <nav class="nav__links">
+    <a href="#directory">Directory</a>
+    <a href="#about">About</a>
+    <a href="#submit" class="nav__cta">Submit a tool</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero__inner">
+    <span class="label fade-up d-1">AI Tool Directory · Curated 2026</span>
+    <h1 class="hero__title fade-up d-2">
+      The AI tools that<br>
+      travel <em>with</em> you.
+    </h1>
+    <p class="hero__desc fade-up d-3">
+      A curated directory of the best AI tools for remote workers, digital nomads, and solopreneurs — built to automate the work that keeps you stationary.
+    </p>
+    <div class="search fade-up d-4">
+      <span class="search__icon">⌕</span>
+      <input type="text" class="search__input" id="search" placeholder="Search by name, category, or what you need…" aria-label="Search tools" />
+      <span class="search__count" id="searchCount">06 tools</span>
+    </div>
+    <div class="hero__meta fade-up d-4">
+      <span><strong>06</strong> tools curated</span>
+      <span><strong>04</strong> categories</span>
+      <span>Updated <strong>weekly</strong></span>
+    </div>
+  </div>
+</section>
+
+<section class="directory" id="directory">
+  <div class="directory__head">
+    <span class="label">The Directory</span>
+    <div class="filters" id="filters" role="tablist">
+      <button class="filter is-active" data-cat="all" role="tab" aria-selected="true">All <span class="filter__count">06</span></button>
+      <button class="filter" data-cat="productivity" role="tab">Productivity <span class="filter__count">02</span></button>
+      <button class="filter" data-cat="marketing" role="tab">Marketing <span class="filter__count">02</span></button>
+      <button class="filter" data-cat="design" role="tab">Design <span class="filter__count">01</span></button>
+      <button class="filter" data-cat="finance" role="tab">Finance <span class="filter__count">01</span></button>
+    </div>
+  </div>
+  <div class="grid" id="grid"></div>
+  <div class="empty" id="empty" hidden>
+    <span class="empty__mark">∅</span>
+    <p>No tools match your search. Try a different keyword or category.</p>
+  </div>
+</section>
+
+<footer class="footer" id="about">
+  <div class="footer__inner">
+    <div class="footer__brand">
+      <span class="nav__mark">◆</span>
+      <span>NomadAI Hub</span>
+    </div>
+    <p class="footer__tag">Curated for the untethered.</p>
+    <p class="footer__small">© 2026 NomadAI Hub · A reader-supported directory. We do not sell placement.</p>
+  </div>
+</footer>
+
+<!-- ============ MODAL ============ -->
+<div class="modal-overlay" id="modalOverlay" aria-hidden="true" role="dialog" aria-modal="true">
+  <div class="modal" id="modal">
+    <header class="modal__head">
+      <div class="modal__head-text">
+        <span class="label">Now using</span>
+        <h2 class="modal__title" id="modalTitle">Use Tool</h2>
+      </div>
+      <button class="modal__close" id="modalClose" aria-label="Close modal">×</button>
+    </header>
+    <div class="modal__body">
+      <p class="modal__instruction" id="modalInstruction">Paste your input below and let the AI handle the rest.</p>
+      <textarea class="modal__textarea" id="modalInput" placeholder="Type or paste here…"></textarea>
+      <button class="modal__generate" id="modalGenerate">Generate with AI</button>
+      <div class="modal__result">
+        <div class="modal__result-head">
+          <span class="label">Result</span>
+        </div>
+        <div class="modal__result-body is-empty" id="modalResult">
+          Your AI-generated result will appear here.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // ⚙️  CONFIGURATION — NOW SECURED VIA PROXY
+  // ============================================
+  // Ab browser me koi key nahi dikhegi!
+  const GEMINI_ENDPOINT = '/api/generate';
+  // ============================================
+  // SEED DATA — each tool carries its own AI persona
+  // ============================================
+  const tools = [
+    {
+      name: 'Tessera Notes',
+      initials: 'TN',
+      category: 'productivity',
+      tag: 'Productivity',
+      desc: 'AI note-taker that turns meeting transcripts into searchable, self-organizing knowledge bases you can query from any timezone.',
+      instruction: 'Paste your meeting transcript, raw notes, or scattered thoughts below. Tessera will structure them into clean, searchable notes with action items and decisions.',
+      placeholder: 'Paste your meeting transcript or rough notes here…',
+      systemPrompt: 'You are Tessera Notes, an AI meeting and knowledge assistant. Take the user\'s input — raw notes, a meeting transcript, or scattered thoughts — and transform it into clean, structured notes. Organize with clear sections: Summary, Key Decisions, Action Items (with owners if mentioned), Follow-ups, and any Open Questions. Use markdown formatting with headers (##) and bullet lists. Be concise but do not lose specific details, names, or numbers from the source.'
+    },
+    {
+      name: 'FlowState',
+      initials: 'FS',
+      category: 'productivity',
+      tag: 'Productivity',
+      desc: 'Context-aware focus timer that silences notifications, queues deep-work sessions, and learns when your attention naturally peaks.',
+      instruction: 'Describe your workday, the tasks on your plate, or where your focus keeps breaking. FlowState will design a personalized deep-work schedule.',
+      placeholder: 'e.g. I have 3 client calls, a newsletter to write, and I always crash around 3pm…',
+      systemPrompt: 'You are FlowState, an AI productivity coach specializing in deep-work scheduling for remote workers and solopreneurs. The user will describe their workday, tasks, or focus challenges. Design a personalized time-blocked schedule for them. Account for energy levels (morning peaks, post-lunch dips), include specific break recommendations, and suggest one focus technique matched to their situation. Use markdown with a clear time-blocked table or list. Be practical, not preachy.'
+    },
+    {
+      name: 'CopyPilot',
+      initials: 'CP',
+      category: 'marketing',
+      tag: 'Marketing',
+      desc: 'Generates on-brand blog posts, cold emails, and ad copy from a single style brief — then adapts tone across every channel you publish on.',
+      instruction: 'Describe your product, offer, or message below. Specify the format you need (blog intro, cold email, ad headline, etc.) and CopyPilot will draft it in your voice.',
+      placeholder: 'e.g. Write a cold email for a SaaS tool that helps freelancers track unpaid invoices. Tone: direct, slightly witty…',
+      systemPrompt: 'You are CopyPilot, an expert direct-response copywriter with 15 years of experience across SaaS, e-commerce, and B2B services. The user will give you a product, offer, or brief. Generate compelling, on-brand marketing copy in the exact format they request (blog intro, cold email, ad headline, landing page hero, etc.). Write a single strong draft — not options — with a clear hook, value proposition, and call-to-action. Match the tone they specify. Use markdown formatting. Do not include strategic commentary unless asked; just deliver the copy.'
+    },
+    {
+      name: 'Audience OS',
+      initials: 'AO',
+      category: 'marketing',
+      tag: 'Marketing',
+      desc: 'Predicts which content angles will land with your audience before you publish, using engagement signals pulled from your entire stack.',
+      instruction: 'Share your content idea or angle below. Audience OS will predict how it lands across audience segments and suggest sharper alternatives.',
+      placeholder: 'e.g. I want to write a Twitter thread about why I quit agency life to freelance from Bali…',
+      systemPrompt: 'You are Audience OS, an AI content strategist. The user will share a content idea, angle, or draft. Predict how it will land across 2-3 distinct audience segments, identify the strongest emotional hook, suggest 3 sharper alternative angles, and recommend which channels (Twitter, LinkedIn, newsletter, etc.) each angle suits best. Use markdown with clear section headers. Be specific and opinionated — do not hedge.'
+    },
+    {
+      name: 'Studio Mate',
+      initials: 'SM',
+      category: 'design',
+      tag: 'Design',
+      desc: 'Turns rough sketches and wireframes into production-ready mockups that inherit your existing design-system tokens automatically.',
+      instruction: 'Describe the screen, wireframe, or design problem you\'re working through. Studio Mate will critique it and propose a revised layout.',
+      placeholder: 'e.g. I\'m designing a mobile onboarding flow for a habit-tracking app. 4 screens. Users keep dropping at step 3…',
+      systemPrompt: 'You are Studio Mate, an AI UX/UI design reviewer with a strong editorial sensibility and deep knowledge of design systems (Material, HIG, Tailwind, Radix). The user will describe a screen, wireframe, flow, or design problem. Provide: (1) a concise critique identifying the top 3 issues, (2) a revised layout description in plain language, (3) specific recommendations for spacing, hierarchy, color, and component choices. Respect common design-system patterns. Use markdown with clear headers. Reference real component libraries when relevant.'
+    },
+    {
+      name: 'Ledger Lite',
+      initials: 'LL',
+      category: 'finance',
+      tag: 'Finance',
+      desc: 'Categorizes freelance income and expenses automatically across currencies, with monthly P&L summaries built for solo operators.',
+      instruction: 'Paste your expenses, income, or raw transaction notes below. Multiple currencies welcome. Ledger Lite will categorize and summarize them into a clean P&L.',
+      placeholder: 'e.g. Stripe payout $4,200 · Figma $15/mo · Flight to Lisbon €180 · Client lunch $47 · Notion $10…',
+      systemPrompt: 'You are Ledger Lite, an AI freelance financial assistant for solo operators and digital nomads. The user will paste expenses, income, or transaction notes — possibly across multiple currencies. Convert everything to a single base currency (USD if unspecified) using approximate current rates, categorize each line item, compute subtotals per category, and produce a clean monthly P&L summary with: Total Income, Total Expenses (by category), Net Profit, and 2-3 actionable observations for a solo operator. Use markdown with a table for the categorized transactions and headers for the summary. Flag any items that look unusually high or mis-categorized.'
+    }
+  ];
+
+  // ============================================
+  // DOM refs
+  // ============================================
+  const grid = document.getElementById('grid');
+  const filtersEl = document.getElementById('filters');
+  const searchInput = document.getElementById('search');
+  const searchCount = document.getElementById('searchCount');
+  const emptyEl = document.getElementById('empty');
+
+  const modalOverlay = document.getElementById('modalOverlay');
+  const modalTitle = document.getElementById('modalTitle');
+  const modalInstruction = document.getElementById('modalInstruction');
+  const modalInput = document.getElementById('modalInput');
+  const modalGenerate = document.getElementById('modalGenerate');
+  const modalResult = document.getElementById('modalResult');
+  const modalClose = document.getElementById('modalClose');
+
+  let activeCategory = 'all';
+  let activeQuery = '';
+  let activeTool = null;
+  let isGenerating = false;
+
+  const pad = n => String(n).padStart(2, '0');
+
+  // ============================================
+  // Render cards
+  // ============================================
+  function renderCards() {
+    const q = activeQuery.toLowerCase().trim();
+    const filtered = tools.filter(t => {
+      const matchCat = activeCategory === 'all' || t.category === activeCategory;
+      const matchQuery = !q ||
+        t.name.toLowerCase().includes(q) ||
+        t.desc.toLowerCase().includes(q) ||
+        t.tag.toLowerCase().includes(q);
+      return matchCat && matchQuery;
+    });
+
+    searchCount.textContent = `${pad(filtered.length)} tool${filtered.length === 1 ? '' : 's'}`;
+    grid.innerHTML = '';
+
+    if (filtered.length === 0) {
+      emptyEl.hidden = false;
+      return;
+    }
+    emptyEl.hidden = true;
+
+    filtered.forEach((t, i) => {
+      const card = document.createElement('article');
+      card.className = 'card';
+      card.style.transitionDelay = (i * 70) + 'ms';
+      card.innerHTML = `
+        <div class="card__head">
+          <span class="card__tag">${t.tag}</span>
+          <div class="card__logo" aria-hidden="true">${t.initials}</div>
+        </div>
+        <h3 class="card__title">${t.name}</h3>
+        <p class="card__desc">${t.desc}</p>
+        <button class="card__cta" data-tool="${t.name}" aria-label="Open ${t.name}">View Tool</button>
+      `;
+      grid.appendChild(card);
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => card.classList.add('is-in'));
+      });
+    });
+  }
+
+  // ============================================
+  // Filters & Search
+  // ============================================
+  filtersEl.addEventListener('click', e => {
+    const btn = e.target.closest('.filter');
+    if (!btn) return;
+    filtersEl.querySelectorAll('.filter').forEach(b => {
+      b.classList.remove('is-active');
+      b.setAttribute('aria-selected', 'false');
+    });
+    btn.classList.add('is-active');
+    btn.setAttribute('aria-selected', 'true');
+    activeCategory = btn.dataset.cat;
+    renderCards();
+  });
+
+  let searchTimer;
+  searchInput.addEventListener('input', e => {
+    clearTimeout(searchTimer);
+    searchTimer = setTimeout(() => {
+      activeQuery = e.target.value;
+      renderCards();
+    }, 120);
+  });
+
+  // ============================================
+  // Modal logic
+  // ============================================
+  grid.addEventListener('click', e => {
+    const btn = e.target.closest('.card__cta');
+    if (!btn) return;
+    const tool = tools.find(t => t.name === btn.dataset.tool);
+    if (tool) openModal(tool);
+  });
+
+  function openModal(tool) {
+    activeTool = tool;
+    modalTitle.textContent = `Use ${tool.name}`;
+    modalInstruction.textContent = tool.instruction;
+    modalInput.value = '';
+    modalInput.placeholder = tool.placeholder || 'Type or paste here…';
+    modalResult.textContent = 'Your AI-generated result will appear here.';
+    modalResult.className = 'modal__result-body is-empty';
+    modalOverlay.classList.add('is-open');
+    modalOverlay.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    setTimeout(() => modalInput.focus(), 350);
+  }
+
+  function closeModal() {
+    modalOverlay.classList.remove('is-open');
+    modalOverlay.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    activeTool = null;
+    isGenerating = false;
+  }
+
+  modalClose.addEventListener('click', closeModal);
+  modalOverlay.addEventListener('click', e => {
+    if (e.target === modalOverlay) closeModal();
+  });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && modalOverlay.classList.contains('is-open')) closeModal();
+  });
+
+  // ============================================
+  // Gemini API call (Smart Hybrid Endpoint)
+  // ============================================
+  modalGenerate.addEventListener('click', async () => {
+    if (!activeTool || isGenerating) return;
+
+    const userInput = modalInput.value.trim();
+    if (!userInput) {
+      modalInput.focus();
+      modalInput.style.borderColor = '#ff6b6b';
+      setTimeout(() => { modalInput.style.borderColor = ''; }, 1500);
+      return;
+    }
+
+    isGenerating = true;
+    modalGenerate.disabled = true;
+    modalResult.className = 'modal__result-body';
+    modalResult.innerHTML = `
+      <div class="thinking">
+        <span>AI is thinking</span>
+        <span class="thinking__dots">
+          <span class="thinking__dot"></span>
+          <span class="thinking__dot"></span>
+          <span class="thinking__dot"></span>
+        </span>
+      </div>
+    `;
+
+    // 💡 SMART DETECT: Agar local computer par ho to direct chalega, live hone par proxy se!
+    const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.protocol === 'file:';
+    
+    // Yahan aapki nayi wali working API key daal dena jo abhi chali thi
+    const LOCAL_KEY = "AQ.Ab8RN6L8uhGaJiLyxgSQ-_5rEdX-Up1KO32MDzAcbhFBZG1pzA"; 
+    
+    const endpoint = isLocal 
+      ? `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${LOCAL_KEY}`
+      : '/api/generate';
+
+    try {
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          systemInstruction: {
+            parts: [{ text: activeTool.systemPrompt }]
+          },
+          contents: [
+            {
+              role: 'user',
+              parts: [{ text: userInput }]
+            }
+          ],
+          generationConfig: {
+            temperature: 0.8,
+            maxOutputTokens: 2048
+          }
+        })
+      });
+
+      if (!response.ok) {
+        const errData = await response.json().catch(() => ({}));
+        throw new Error(errData?.error?.message || `Request failed with status ${response.status}`);
+      }
+
+      const data = await response.json();
+      const text = data?.candidates?.[0]?.content?.parts?.[0]?.text
+        || data?.candidates?.[0]?.content?.parts?.map(p => p.text).join('')
+        || 'No response returned from the model.';
+
+      modalResult.innerHTML = renderMarkdown(text);
+    } catch (err) {
+      modalResult.innerHTML = `
+        <p class="modal__error">⚠ Request failed.</p>
+        <p style="margin-top:0.75rem;color:var(--text-soft);font-size:0.9rem;font-family:var(--mono);word-break:break-word;">
+          ${err.message || 'Unknown error.'}
+        </p>
+      `;
+    } finally {
+      isGenerating = false;
+      modalGenerate.disabled = false;
+    }
+  });
+   
+
+  // ============================================
+  // Minimal markdown renderer (safe — escapes first)
+  // ============================================
+  function renderMarkdown(text) {
+    let html = text
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;');
+
+    // Code blocks
+    html = html.replace(/```([\s\S]*?)```/g, (m, c) => `<pre><code>${c.replace(/^\n/, '')}</code></pre>`);
+    // Headers
+    html = html.replace(/^### (.+)$/gm, '<h4>$1</h4>');
+    html = html.replace(/^## (.+)$/gm, '<h3>$1</h3>');
+    html = html.replace(/^# (.+)$/gm, '<h3>$1</h3>');
+    // Bold & italic & inline code
+    html = html.replace(/\*\*(.+?)\*\"/g, '<strong>$1</strong>');
+    html = html.replace(/\*(.+?)\*/g, '<em>$1</em>');
+    html = html.replace(/`(.+?)`/g, '<code>$1</code>');
+
+    // Process line-by-line for lists & paragraphs
+    const lines = html.split('\n');
+    const out = [];
+    let inUl = false, inOl = false;
+    for (let line of lines) {
+      const ulMatch = /^\s*[-*] (.+)/.exec(line);
+      const olMatch = /^\s*\d+\. (.+)/.exec(line);
+      if (ulMatch) {
+        if (!inUl) { out.push('<ul>'); inUl = true; }
+        if (inOl) { out.push('</ol>'); inOl = false; }
+        out.push(`<li>${ulMatch[1]}</li>`);
+      } else if (olMatch) {
+        if (!inOl) { out.push('<ol>'); inOl = true; }
+        if (inUl) { out.push('</ul>'); inUl = false; }
+        out.push(`<li>${olMatch[1]}</li>`);
+      } else {
+        if (inUl) { out.push('</ul>'); inUl = false; }
+        if (inOl) { out.push('</ol>'); inOl = false; }
+        if (line.trim() && !/^<(h3|h4|pre|ul|ol)/.test(line.trim()) && !/^<\/(h3|h4|pre|ul|ol)/.test(line.trim())) {
+          out.push(`<p>${line}</p>`);
+        } else if (line.trim()) {
+          out.push(line);
+        }
+      }
+    }
+    if (inUl) out.push('</ul>');
+    if (inOl) out.push('</ol>');
+    return out.join('\n');
+  }
+
+  // ============================================
+  // Init
+  // ============================================
+  renderCards();
+
+  window.addEventListener('load', () => {
+    document.querySelectorAll('.fade-up').forEach(el => el.classList.add('is-in'));
+  });
+  if (document.readyState === 'complete') {
+    document.querySelectorAll('.fade-up').forEach(el => el.classList.add('is-in'));
+  }
+</script>
+</body>
+</html>
